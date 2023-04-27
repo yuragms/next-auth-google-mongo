@@ -2,7 +2,10 @@ import Head from 'next/head';
 import React from 'react';
 import Layout from '../layout/layout';
 import Link from 'next/link';
-
+import styles from '../styles/Form.module.css';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import Image from 'next/image';
 export default function Login() {
   return (
     <Layout>
@@ -19,21 +22,41 @@ export default function Login() {
         </div>
         {/*form */}
         <form className="flex flex-col gap-5">
-          <div className="input-group">
-            <input type="email" name="email" placeholder="Email" />
+          <div className={styles.input_group}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className={styles.input_text}
+            />
           </div>
-          <div className="input-group">
-            <input type="password" name="password" placeholder="Password" />
+          <div className={styles.input_group}>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className={styles.input_text}
+            />
           </div>
           {/*login button */}
           <div className="input-button">
-            <button type="submit">Login</button>
+            <button type="submit" className={styles.button}>
+              Login
+            </button>
           </div>
           <div className="input-button">
-            <button type="submit">Sign In With Google</button>
+            <button type="button" className={styles.button_custom}>
+              <FcGoogle />
+              Sign In With Google
+            </button>
           </div>
           <div className="input-button">
-            <button type="submit">Sign In With GitHub</button>
+            <button type="button" className={styles.button_custom}>
+              <div>
+                <FaGithub />
+              </div>
+              Sign In With GitHub
+            </button>
           </div>
         </form>
         {/*bottom */}
