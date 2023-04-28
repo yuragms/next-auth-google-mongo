@@ -1,12 +1,14 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../layout/layout';
 import Link from 'next/link';
 import styles from '../styles/Form.module.css';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-import Image from 'next/image';
+import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
+
 export default function Login() {
+  const [show, setShow] = useState(false);
   return (
     <Layout>
       <Head>
@@ -29,14 +31,23 @@ export default function Login() {
               placeholder="Email"
               className={styles.input_text}
             />
+            <span className="icon flex items-center px-4">
+              <HiAtSymbol size={25} />
+            </span>
           </div>
           <div className={styles.input_group}>
             <input
-              type="password"
+              type={`${show ? 'text' : 'password'}`}
               name="password"
               placeholder="Password"
               className={styles.input_text}
             />
+            <span
+              className="icon flex items-center px-4"
+              onClick={() => setShow(!show)}
+            >
+              <HiFingerPrint size={25} />
+            </span>
           </div>
           {/*login button */}
           <div className="input-button">
@@ -46,14 +57,14 @@ export default function Login() {
           </div>
           <div className="input-button">
             <button type="button" className={styles.button_custom}>
-              <FcGoogle />
+              <FcGoogle size={20} />
               Sign In With Google
             </button>
           </div>
           <div className="input-button">
             <button type="button" className={styles.button_custom}>
               <div>
-                <FaGithub />
+                <FaGithub size={20} />
               </div>
               Sign In With GitHub
             </button>
