@@ -16,6 +16,11 @@ export default function Login() {
   async function handleGoogleSignin() {
     signIn('google', { callbackUrl: 'http://localhost:3000' });
   }
+  //GitHub Handler function
+
+  async function handleGithubSignin() {
+    signIn('github', { callbackUrl: 'http://localhost:3000' });
+  }
   return (
     <Layout>
       <Head>
@@ -73,7 +78,11 @@ export default function Login() {
             </button>
           </div>
           <div className="input-button">
-            <button type="button" className={styles.button_custom}>
+            <button
+              type="button"
+              className={styles.button_custom}
+              onClick={handleGithubSignin}
+            >
               <div>
                 <FaGithub size={20} />
               </div>
