@@ -10,3 +10,5 @@ const connectMongo = async () => {
     return Promise.reject(error);
   }
 };
+
+export default connectMongo;
