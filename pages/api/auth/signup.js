@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     if (!req.body)
       return res.status(404).json({ error: "Don't have form data...!" });
     const { username, email, password } = req.body;
+    console.log(username);
 
     //check duplicate userSelect
     const checkexisting = await Users.findOne({ email });
@@ -16,13 +17,24 @@ export default async function handler(req, res) {
       return res.status(422).json({ message: 'User Already Exist...!' });
 
     //hash password
-    Users.create(
-      { username, email, password: await hash(password, 12) },
-      function (err, data) {
-        if (err) return res.status(404).json({ err });
+    // Users.create(
+    //   { username, email, password: await hash(password, 12) },
+    //   function (err, data) {
+    //     if (err) return res.status(404).json({ err });
+    //     res.status(201).json({ status: true, user: data });
+    //   }
+    // );
+    Users.create({
+      username,
+      email,
+      password: await hash(password, 12),
+    })
+      .then((data) => {
         res.status(201).json({ status: true, user: data });
-      }
-    );
+      })
+      .catch((err) => {
+        return res.status(404).json({ err });
+      });
   } else {
     res
       .status(500)
