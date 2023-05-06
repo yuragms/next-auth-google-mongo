@@ -6,9 +6,11 @@ import styles from '../styles/Form.module.css';
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi';
 import { useFormik } from 'formik';
 import { registerValidate } from '../lib/validate';
+import { useRouter } from 'next/router';
 
 export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false });
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -22,6 +24,16 @@ export default function Register() {
 
   async function onSubmit(values) {
     console.log(values);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    };
+    await fetch('http://localhost:3000/api/auth/signup', options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) router.push('http://localhost:3000');
+      });
   }
   return (
     <Layout>
