@@ -2,11 +2,9 @@ import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import clientPromise from '../../../database/conn';
+import connectMongo from '../../../database/conn';
 import Users from '../../../model/Schema';
 import { compare } from 'bcryptjs';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -44,6 +42,5 @@ export const authOptions = {
     // ...add more providers here
   ],
   secret: '2Qw/f3K7HO7b4gF/1IlvJh/g5h/P6Idz1PQVcXKjXiA=',
-  // adapter: MongoDBAdapter(clientPromise),
 };
 export default NextAuth(authOptions);
