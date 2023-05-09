@@ -44,6 +44,6 @@ export const authOptions = {
     // ...add more providers here
   ],
   secret: '2Qw/f3K7HO7b4gF/1IlvJh/g5h/P6Idz1PQVcXKjXiA=',
-  adapter: MongoDBAdapter(clientPromise),
+  // adapter: MongoDBAdapter(clientPromise),
 };
 export default NextAuth(authOptions);
