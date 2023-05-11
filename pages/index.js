@@ -47,7 +47,7 @@ function User({ session, handleSignOut }) {
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
       <div className="details">
-        <h5>{session.user.name}</h5>
+        {/* <h5>{session.user.name}</h5> */}
         <h5>{session.user.email}</h5>
       </div>
       <div className="flex justify-center">

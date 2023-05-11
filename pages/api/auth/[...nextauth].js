@@ -40,12 +40,30 @@ export const authOptions = {
         if (!checkPassword || result.email !== credentials.email) {
           throw new Error("Username or Password doesn't match");
         }
-        return result;
+        const user = result;
+        return user;
       },
     }),
     // ...add more providers here
   ],
   secret: '2Qw/f3K7HO7b4gF/1IlvJh/g5h/P6Idz1PQVcXKjXiA=',
-  // adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise),
+  pages: {
+    signIn: '/login',
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      const user = token.user;
+      session.user = user;
+      return session;
+    },
+  },
 };
 export default NextAuth(authOptions);
