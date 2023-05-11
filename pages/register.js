@@ -6,9 +6,13 @@ import styles from '../styles/Form.module.css';
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from 'react-icons/hi';
 import { useFormik } from 'formik';
 import { registerValidate } from '../lib/validate';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import axios from 'axios';
 
 export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false });
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -22,7 +26,23 @@ export default function Register() {
 
   async function onSubmit(values) {
     console.log(values);
+    try {
+      await axios.post('/api/auth/signup', values);
+      const status = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        callbackUrl: '/',
+      });
+      if (status.ok) router.push(status.url);
+      if (status.error) {
+        alert(status.error);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+
   return (
     <Layout>
       <Head>
